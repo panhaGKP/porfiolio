@@ -93,4 +93,82 @@ modalCloses.forEach(
     }
 )
 
-// ============PORTFIOLIO SWIPER==================== No use
+// ============Scroll section active link==================== No use
+const sections = document.querySelectorAll(".section[id]");
+const navLi = document.querySelectorAll(".nav .nav__menu .nav__list .nav__item .nav__link");
+window.onscroll = ()=>{
+    var current = "";
+    sections.forEach(
+        (section)=>{
+            const sectionTop = section.offsetTop;
+            var pageYOffset = window.scrollY;
+            if(pageYOffset >= sectionTop - 50){
+                current = section.getAttribute('id');
+            }
+        }
+    );
+    navLi.forEach(
+        (li)=>{
+            li.classList.remove("active-link")
+            
+            if(li.classList.contains(current)){
+                li.classList.add("active-link")
+            }
+        }
+    );
+
+};
+
+// ==================Change background Header===================
+function scrollHeader(){
+    const nav = document.getElementById('header')
+    //when the scroll is greater than 80 viewport height, add the scroll-header class to the header tag
+    if(this.scrollY >=80){
+        nav.classList.add('scroll-header')
+    }else{
+        nav.classList.remove('scroll-header')
+    }
+}
+window.addEventListener('scroll', scrollHeader);
+
+
+// =============SHOW SCROLL TOP===================
+function scrollUp(){
+    const scrollUp = document.getElementById('scroll-up');
+    if(this.scrollY >= 560) scrollUp.classList.add('show-scroll');else scrollUp.classList.remove('show-scroll');
+}
+window.addEventListener('scroll', scrollUp)
+
+
+/*===========Dark theme color=========== */
+const themeButton = document.getElementById('theme-button')
+const darkTheme = 'dark-theme'
+const iconTheme = 'uil-sun'
+
+//previously selected topic (if user selected)
+const selectedTheme = localStorage.getItem('selected-theme')
+const selectedIcon = localStorage.getItem('selected-icon')
+
+// we obtain the current theme that the interface has by validating the darktheme class 
+const getCurrentTheme= ()=>document.body.classList.contains(darkTheme)? 'dark':'light'
+const getCurrentIcon= ()=>document.body.classList.contains(iconTheme)? 'uil-moon':'uil-sun'
+
+//validate if the user previously chose a topic
+
+if(selectedTheme){
+    document.body.classList[selectedTheme ==='dark'? 'add' : 'remove'](darkTheme)
+    document.body.classList[selectedTheme ==='uil-moon'? 'add' : 'remove'](iconTheme)
+}
+
+// activate/deactivate the theme manullay witht he button
+themeButton.addEventListener('click',()=>{
+
+    //add or remove the dark icon theme
+    document.body.classList.toggle(darkTheme)
+    themeButton.classList.toggle(iconTheme)
+
+    // save the theme and the current  icon that the user chose
+    localStorage.setItem('selected-theme', getCurrentTheme())
+    localStorage.setItem('selected-icon', getCurrentIcon())
+})
+
