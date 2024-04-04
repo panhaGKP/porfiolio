@@ -46,7 +46,7 @@ skillsHeader.forEach((el)=>{
 })
 
 /*===========Qualification Tab============== */
-const tabs = document.querySelectorAll('[data-target')
+const tabs = document.querySelectorAll('[data-target]')
 const tabContents = document.querySelectorAll('[data-content]');
 
 tabs.forEach(tab=>{
@@ -104,6 +104,7 @@ window.onscroll = ()=>{
             var pageYOffset = window.scrollY;
             if(pageYOffset >= sectionTop - 50){
                 current = section.getAttribute('id');
+                //console.log(current);
             }
         }
     );
